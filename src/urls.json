@@ -1,0 +1,4 @@
+{
+  "employees": "https://dummy.restapiexample.com/api/v1/employees",
+  "employee": "https://dummy.restapiexample.com/api/v1/employee/"
+}
