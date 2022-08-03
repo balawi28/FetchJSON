@@ -1,21 +1,23 @@
 .Form {
   display: grid;
-  grid-template-rows: 0.2fr 1fr 0.5fr 0.5fr;
-
+  grid-template-rows: repeat(4, minmax(90px, 100px));
   grid-template-areas:
     'name name'
     'salary salary'
     'age age'
     'submit update';
-  gap: 20px;
+  gap: 5px;
 }
 .Form-FormField-name {
+  display: flex;
   grid-area: name;
 }
 .Form-FormField-salary {
+  display: flex;
   grid-area: salary;
 }
 .Form-FormField-age {
+  display: flex;
   grid-area: age;
 }
 .Form-button-submit {
@@ -28,7 +30,7 @@
   font-weight: 400;
   font-size: 1.3rem;
   font-family: Poppins;
-  padding: 25px 45px;
+  padding: 20px 45px;
 }
 
 .Form-button-update {
