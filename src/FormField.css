@@ -1,0 +1,42 @@
+.FormField {
+  padding: 15px 30px;
+  background-color: #323644;
+  display: grid;
+  grid-template-areas:
+    'title icon'
+    'input icon';
+  border-radius: 3vw;
+  justify-content: space-between;
+}
+
+.FormField-title {
+  grid-area: title;
+  color: #72747f;
+  font-weight: 300;
+  font-family: Poppins;
+}
+
+.FormField-input {
+  grid-area: input;
+  outline: none;
+  color: #fff;
+  font-weight: 400;
+  font-size: 1.3rem;
+  background: transparent;
+  border: none;
+  font-family: Poppins;
+}
+
+.FormField-icon {
+  min-width: 25px;
+  fill: #a9acb1;
+}
+
+.FormField-icon-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-area: icon;
+}

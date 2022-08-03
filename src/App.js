@@ -3,13 +3,11 @@ import _ from 'lodash';
 import React, { useState, useEffect } from 'react';
 import URL from './urls.json';
 import './App.css';
+import Form from './Form';
 
 export default function App() {
   const [users, setUsers] = useState([]);
-  const [id, setId] = useState('');
-  const [name, setName] = useState('');
-  const [salary, setSalary] = useState('');
-  const [age, setAge] = useState('');
+  const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -28,10 +26,10 @@ export default function App() {
     axios
       .get(URL.employee + id)
       .then((response) => {
-        setId(response.data.data.id);
-        setName(response.data.data.employee_name);
-        setSalary(response.data.data.employee_salary);
-        setAge(response.data.data.employee_age);
+        const {
+          data: { data: user },
+        } = response;
+        setUser(user);
       })
       .catch((error) => {
         console.log(error.response);
@@ -39,46 +37,56 @@ export default function App() {
       })
       .finally(() => setLoading(false));
   };
+
+  const {
+    id = '',
+    employee_name: name = '',
+    employee_salary: salary = '',
+    employee_age: age = '',
+  } = user;
+
   return (
     <div className='app'>
       <div className='list'>
         {users.length > 0 && (
-          <ul>
+          <table className='list-table'>
             {_.map(users, (user) => (
-              <li
+              <tr
+                className='element'
                 key={user.id}
                 onClick={(event) => displayCard(event, user.id)}
               >
-                {user.employee_name}
-              </li>
+                <td>{user.employee_name}</td>
+              </tr>
             ))}
-          </ul>
+          </table>
         )}
       </div>
-      {loading ? (
-        <div class='lds-dual-ring'></div>
-      ) : (
-        <div className='infocard'>
-          <div className='column1'>
-            <label>Employee ID:</label>
-            <br />
-            <label>Employee Name:</label>
-            <br />
-            <label>Employee Salary:</label>
-            <br />
-            <label>Employee Age:</label>
-          </div>
-          <div className='column2'>
-            <label>{id}</label>
-            <br />
-            <label>{name}</label>
-            <br />
-            <label>{salary}</label>
-            <br />
-            <label>{age}</label>
-          </div>
-        </div>
-      )}
+      <div className='card'>
+        {loading ? (
+          <div class='lds-dual-ring'></div>
+        ) : (
+          <table className='info'>
+            <tr>
+              <th>Employee ID:</th>
+              <td>{id}</td>
+            </tr>
+            <tr>
+              <th>Employee Name:</th>
+              <td>{name}</td>
+            </tr>
+            <tr>
+              <th>Employee Salary:</th>
+              <td>{salary}</td>
+            </tr>
+            <tr>
+              <th>Employee Age:</th>
+              <td>{age}</td>
+            </tr>
+          </table>
+        )}
+      </div>
+      <Form />
     </div>
   );
 }
