@@ -1,5 +1,5 @@
 .FormField {
-  padding: 15px 30px;
+  padding: 15px 35px;
   width: 100%;
   background-color: #323644;
   display: grid;
@@ -9,6 +9,7 @@
     'input icon';
   border-radius: 26px;
   justify-content: space-between;
+  line-height: 15px;
 }
 
 .FormField-title {

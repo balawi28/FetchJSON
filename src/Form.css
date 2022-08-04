@@ -1,12 +1,12 @@
 .Form {
   display: grid;
+  grid-template-columns: 1fr 1fr;
   grid-template-areas:
     'title title'
     'name name'
     'salary salary'
     'age age'
     'submit update';
-  height: 200px;
   gap: 20px;
 }
 .Form-FormField-name {
@@ -21,10 +21,10 @@
   display: flex;
   grid-area: age;
 }
-.Form-button-submit {
-  grid-area: submit;
+
+.Form-button {
   border: none;
-  background-color: #555b69;
+  cursor: pointer;
   color: #fff;
   border-radius: 3vw;
   font-weight: 400;
@@ -33,20 +33,26 @@
   padding: 20px 45px;
 }
 
+.Form-button-submit {
+  grid-area: submit;
+  background-color: #555b69;
+}
+
+.Form-button-submit:hover {
+  background-color: #3f4450;
+}
+
 .Form-button-update {
   grid-area: update;
-  border: none;
   background-color: #1779ce;
-  color: #fff;
-  border-radius: 3vw;
-  font-weight: 400;
-  font-size: 1.3rem;
-  font-family: Poppins;
-  padding: 25px 45px;
+}
+
+.Form-button-update:hover {
+  background-color: #105694;
 }
 
 .Form-h1-title {
   grid-area: title;
-  text-align: center;
-  font-size: 4.3vw;
+  position: relative;
+  left: 20px;
 }

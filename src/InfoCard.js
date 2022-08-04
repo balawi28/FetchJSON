@@ -11,6 +11,7 @@ export default function InfoCard({ user, title }) {
 
   return (
     <table className='InfoCard'>
+      <h1 className='InfoCard-heading'>Selected Employee:</h1>
       <th className='InfoCard-id-title'>
         <p>Employee ID:</p>
       </th>

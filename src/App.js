@@ -1,10 +1,11 @@
 import axios from 'axios';
-import _ from 'lodash';
 import React, { useState, useEffect } from 'react';
 import URL from './urls.json';
 import './App.css';
 import Form from './Form';
 import InfoCard from './InfoCard';
+import ListView from './ListView';
+import Spinner from './Spinner';
 
 export default function App() {
   const [users, setUsers] = useState([]);
@@ -40,26 +41,18 @@ export default function App() {
   };
 
   return (
-    <div className='app'>
-      <div className='list'>
-        {users.length > 0 && (
-          <table className='list-table'>
-            {_.map(users, (user) => (
-              <tr
-                className='element'
-                key={user.id}
-                onClick={(event) => displayCard(event, user.id)}
-              >
-                <td>{user.employee_name}</td>
-              </tr>
-            ))}
-          </table>
-        )}
+    <div className='App'>
+      <div className='App-Container'>
+        <div className='App-List'>
+          <ListView users={users} displayCard={displayCard} />
+        </div>
+        <div className='App-Card'>
+          {loading ? <Spinner /> : <InfoCard user={user} />}
+        </div>
+        <div className='App-Form'>
+          <Form />
+        </div>
       </div>
-      <div className='card'>
-        {loading ? <div class='lds-dual-ring'></div> : <InfoCard user={user} />}
-      </div>
-      <Form />
     </div>
   );
 }

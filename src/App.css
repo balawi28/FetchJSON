@@ -6,69 +6,36 @@ body {
   margin: 0;
   padding: 0;
   background: #272a37;
+  color: white;
 }
 
-.app {
-  color: white;
+.App {
+  display: flex;
+  justify-content: center;
+}
+
+.App-Container {
+  max-width: 900px;
+  height: 100vh;
   display: grid;
   justify-content: stretch;
   align-items: stretch;
-  gap: 30px;
+  gap: 60px;
   grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr 1fr;
   grid-template-areas:
     'list card'
     'list form';
-  min-height: 100vh;
 }
 
-.list {
+.App-List {
   grid-area: list;
-  width: 100%;
 }
 
-.list-table {
-  width: 100%;
-}
-
-.card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.App-Card {
   grid-area: card;
-  min-width: 100%;
 }
 
-.info {
-  width: 100%;
-}
-
-.form {
+.App-Form {
   grid-area: form;
-}
-
-.lds-dual-ring {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 70%;
-  width: 70%;
-}
-.lds-dual-ring:after {
-  content: ' ';
-  display: block;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
-  border-radius: 50%;
-  border: 6px solid #fff;
-  border-color: #fff transparent #fff transparent;
-  animation: lds-dual-ring 1.2s linear infinite;
-}
-@keyframes lds-dual-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }

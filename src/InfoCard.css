@@ -13,47 +13,42 @@
 
 .InfoCard th,
 .InfoCard td {
-  width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   text-align: center;
 }
 
-.InfoCard p {
+.InfoCard p,
+.InfoCard-heading {
   position: relative;
   left: 20px;
 }
 
-.InfoCard :nth-child(even) {
-  background-color: #1779ce;
+.InfoCard-heading {
+  grid-area: title;
 }
 
 .InfoCard :nth-child(4n) {
-  background-color: #0f4f88;
+  background-color: #1366af;
 }
 
-.InfoCard :hover:nth-child(even) {
-  background-color: #0f4f88;
+.InfoCard :nth-child(4n-2) {
+  background-color: #167cd4;
 }
 
-.InfoCard :hover:nth-child(odd) {
-  background-color: #282d38;
-}
-
-.InfoCard th:nth-child(odd) {
+.InfoCard :nth-child(4n-1) {
   background-color: #323644;
 }
 
-.InfoCard th:nth-child(4n-1) {
-  background-color: #282d38;
+.InfoCard :nth-child(4n + 5) {
+  background-color: #252733;
 }
 
-.InfoCard th:first-child {
+.InfoCard th:nth-child(2) {
   border-top-left-radius: 25px;
 }
 
-.InfoCard :nth-child(2) {
+.InfoCard :nth-child(3) {
   border-top-right-radius: 25px;
 }
 

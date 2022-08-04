@@ -21,8 +21,8 @@ export default function Form() {
       <div className='Form-FormField-age'>
         <FormField title='Age' type='text' isRequired={true} />
       </div>
-      <button className='Form-button-submit'>Submit</button>
-      <button className='Form-button-update'>Update</button>
+      <button className='Form-button Form-button-submit'>Submit</button>
+      <button className='Form-button Form-button-update'>Update</button>
     </form>
   );
 }
