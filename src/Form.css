@@ -1,12 +1,13 @@
 .Form {
   display: grid;
-  grid-template-rows: repeat(4, minmax(90px, 100px));
   grid-template-areas:
+    'title title'
     'name name'
     'salary salary'
     'age age'
     'submit update';
-  gap: 5px;
+  height: 200px;
+  gap: 20px;
 }
 .Form-FormField-name {
   display: flex;
@@ -22,7 +23,6 @@
 }
 .Form-button-submit {
   grid-area: submit;
-
   border: none;
   background-color: #555b69;
   color: #fff;
@@ -35,13 +35,18 @@
 
 .Form-button-update {
   grid-area: update;
-
   border: none;
-  background-color: #555b69;
+  background-color: #1779ce;
   color: #fff;
   border-radius: 3vw;
   font-weight: 400;
   font-size: 1.3rem;
   font-family: Poppins;
   padding: 25px 45px;
+}
+
+.Form-h1-title {
+  grid-area: title;
+  text-align: center;
+  font-size: 4.3vw;
 }

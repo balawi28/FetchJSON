@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import URL from './urls.json';
 import './App.css';
 import Form from './Form';
+import InfoCard from './InfoCard';
 
 export default function App() {
   const [users, setUsers] = useState([]);
@@ -38,13 +39,6 @@ export default function App() {
       .finally(() => setLoading(false));
   };
 
-  const {
-    id = '',
-    employee_name: name = '',
-    employee_salary: salary = '',
-    employee_age: age = '',
-  } = user;
-
   return (
     <div className='app'>
       <div className='list'>
@@ -63,28 +57,7 @@ export default function App() {
         )}
       </div>
       <div className='card'>
-        {loading ? (
-          <div class='lds-dual-ring'></div>
-        ) : (
-          <table className='info'>
-            <tr>
-              <th>Employee ID:</th>
-              <td>{id}</td>
-            </tr>
-            <tr>
-              <th>Employee Name:</th>
-              <td>{name}</td>
-            </tr>
-            <tr>
-              <th>Employee Salary:</th>
-              <td>{salary}</td>
-            </tr>
-            <tr>
-              <th>Employee Age:</th>
-              <td>{age}</td>
-            </tr>
-          </table>
-        )}
+        {loading ? <div class='lds-dual-ring'></div> : <InfoCard user={user} />}
       </div>
       <Form />
     </div>

@@ -6,6 +6,7 @@ import './Form.css';
 export default function Form() {
   return (
     <form className='Form'>
+      <h1 className='Form-h1-title'>Add or Update Employees.</h1>
       <div className='Form-FormField-name'>
         <FormField
           title='Name'
