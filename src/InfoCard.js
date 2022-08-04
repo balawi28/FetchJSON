@@ -1,7 +1,7 @@
 import React from 'react';
 import './InfoCard.css';
 
-export default function InfoCard({ user, title }) {
+export default function InfoCard({ user, isEmpty }) {
   const {
     id = '',
     employee_name: name = '',
@@ -10,7 +10,10 @@ export default function InfoCard({ user, title }) {
   } = user;
 
   return (
-    <table className='InfoCard'>
+    <table
+      className='InfoCard'
+      style={isEmpty ? { filter: 'blur(4px)' } : { filter: 'blur(0px)' }}
+    >
       <h1 className='InfoCard-heading'>Selected Employee:</h1>
       <th className='InfoCard-id-title'>
         <p>Employee ID:</p>

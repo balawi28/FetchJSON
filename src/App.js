@@ -10,7 +10,10 @@ import Spinner from './Spinner';
 export default function App() {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [newUser, setNewUser] = useState({});
+  const [loadingCard, setLoadingCard] = useState(false);
+  const [loadingForm, setLoadingForm] = useState(false);
+  const [submit, setSubmit] = useState(false);
 
   useEffect(() => {
     axios
@@ -24,7 +27,7 @@ export default function App() {
   }, []);
 
   const displayCard = (e, id) => {
-    setLoading(true);
+    setLoadingCard(true);
     axios
       .get(URL.employee + id)
       .then((response) => {
@@ -35,23 +38,44 @@ export default function App() {
       })
       .catch((error) => {
         console.log(error.response);
+        alert('An error has occured while trying to reach the servers.');
         //setTimeout(displayCard(e, id), 1000);
       })
-      .finally(() => setLoading(false));
+      .finally(() => setLoadingCard(false));
   };
+
+  useEffect(() => {
+    if (submit) {
+      setLoadingForm(true);
+
+      const api = axios.create({
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        baseURL: URL.post,
+      });
+      api
+        .post('/create', newUser)
+        .then((res) => {
+          alert('The employee has been added successfully');
+        })
+        .catch((error) => {
+          alert('An error has occured while posting the new employee');
+        })
+        .finally(() => {
+          setLoadingForm(false);
+        });
+    }
+  }, [submit]);
+
+  // prettier-ignore
 
   return (
     <div className='App'>
       <div className='App-Container'>
-        <div className='App-List'>
-          <ListView users={users} displayCard={displayCard} />
-        </div>
-        <div className='App-Card'>
-          {loading ? <Spinner /> : <InfoCard user={user} />}
-        </div>
-        <div className='App-Form'>
-          <Form />
-        </div>
+        <div className='App-List'><ListView users={users} displayCard={displayCard} /></div>
+        <div className='App-Card'><InfoCard user={user} isEmpty={loadingCard} /></div>
+        <div className='App-Spinner-Card'>{loadingCard ? <Spinner /> : null}</div>
+        <div className='App-Form'><Form setSubmit={setSubmit} isEmpty={loadingForm} setNewUser={ setNewUser } /></div>
+        <div className='App-Spinner-Form'>{loadingForm ? <Spinner /> : null}</div>
       </div>
     </div>
   );

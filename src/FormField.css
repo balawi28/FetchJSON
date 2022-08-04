@@ -19,18 +19,6 @@
   font-family: Poppins;
 }
 
-.FormField-input {
-  grid-area: input;
-  max-width: 90%;
-  outline: none;
-  color: #fff;
-  font-weight: 400;
-  font-size: 1.3rem;
-  background: transparent;
-  border: none;
-  font-family: Poppins;
-}
-
 .FormField-icon {
   min-width: 25px;
   fill: #a9acb1;
@@ -43,4 +31,16 @@
   justify-content: center;
   align-items: center;
   grid-area: icon;
+}
+
+.FormField-input {
+  grid-area: input;
+  max-width: 90%;
+  outline: none;
+  color: #fff;
+  font-weight: 400;
+  font-size: 1.3rem;
+  background: transparent;
+  border: none;
+  font-family: Poppins;
 }

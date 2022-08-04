@@ -43,6 +43,16 @@ body {
   grid-area: card;
 }
 
+.App-Spinner-Card {
+  grid-area: card;
+  margin-top: 100px;
+}
+
 .App-Form {
   grid-area: form;
+}
+
+.App-Spinner-Form {
+  grid-area: form;
+  pointer-events: none;
 }

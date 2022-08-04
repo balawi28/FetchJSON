@@ -20,10 +20,10 @@
   background-color: #252733;
 }
 
-.ListView-table-element td:hover {
-  background-color: #12131a;
-}
-
 .ListView-table tr td {
   border-radius: 0px 12px 12px 0px;
+}
+
+.ListView-table tr td:hover {
+  background-color: #12131a;
 }
