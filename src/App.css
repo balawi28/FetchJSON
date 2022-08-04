@@ -10,13 +10,15 @@ body {
 }
 
 .App {
+  max-width: 100vw;
+  max-height: 100vh;
   display: flex;
   justify-content: center;
 }
 
 .App-Container {
   max-width: 900px;
-  height: 100vh;
+  max-height: 100%;
   display: grid;
   justify-content: stretch;
   align-items: stretch;
@@ -29,7 +31,12 @@ body {
 }
 
 .App-List {
+  overflow-y: scroll;
   grid-area: list;
+}
+
+.App-List::-webkit-scrollbar {
+  display: none;
 }
 
 .App-Card {

@@ -21,7 +21,7 @@
 
 .FormField-input {
   grid-area: input;
-  min-width: 100%;
+  max-width: 90%;
   outline: none;
   color: #fff;
   font-weight: 400;
