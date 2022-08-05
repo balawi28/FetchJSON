@@ -14,6 +14,7 @@ export default function App() {
   const [loadingCard, setLoadingCard] = useState(false);
   const [loadingForm, setLoadingForm] = useState(false);
   const [submit, setSubmit] = useState(false);
+  const [update, setUpdate] = useState(false);
 
   useEffect(() => {
     axios
@@ -47,10 +48,10 @@ export default function App() {
   useEffect(() => {
     if (submit) {
       setLoadingForm(true);
-
+      alert(newUser.employee_name);
       const api = axios.create({
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        baseURL: URL.post,
+        baseURL: URL.api,
       });
       api
         .post('/create', newUser)
@@ -63,8 +64,32 @@ export default function App() {
         .finally(() => {
           setLoadingForm(false);
         });
+      setSubmit(false);
     }
   }, [submit]);
+
+  useEffect(() => {
+    if (update) {
+      setLoadingForm(true);
+
+      const api = axios.create({
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        baseURL: URL.api,
+      });
+      api
+        .put('/update/1', newUser)
+        .then((res) => {
+          alert('The employee has been added successfully');
+        })
+        .catch((error) => {
+          alert('An error has occured while updating the new employee');
+        })
+        .finally(() => {
+          setLoadingForm(false);
+        });
+      setSubmit(false);
+    }
+  }, [update]);
 
   // prettier-ignore
 
@@ -74,7 +99,7 @@ export default function App() {
         <div className='App-List'><ListView users={users} displayCard={displayCard} /></div>
         <div className='App-Card'><InfoCard user={user} isEmpty={loadingCard} /></div>
         <div className='App-Spinner-Card'>{loadingCard ? <Spinner /> : null}</div>
-        <div className='App-Form'><Form setSubmit={setSubmit} isEmpty={loadingForm} setNewUser={ setNewUser } /></div>
+        <div className='App-Form'><Form setSubmit={setSubmit} setUpdate={setUpdate} isEmpty={loadingForm} setNewUser={ setNewUser } /></div>
         <div className='App-Spinner-Form'>{loadingForm ? <Spinner /> : null}</div>
       </div>
     </div>

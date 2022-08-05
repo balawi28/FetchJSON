@@ -8,6 +8,7 @@
     'age age'
     'submit update';
   gap: 20px;
+  height: 100%;
 }
 .Form-FormField-name {
   display: flex;

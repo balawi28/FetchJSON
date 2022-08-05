@@ -2,12 +2,8 @@ import React, { useState } from 'react';
 import './FormField.css';
 import { ReactComponent as Logo } from './icons/identity.svg';
 
-export default function FormField({ title, type, isRequired, Icon }) {
+export default function FormField({ title, type, isRequired, onChange }) {
   const [border, setBorder] = useState(false);
-
-  function flipInputFocus() {
-    setBorder(!border);
-  }
 
   return (
     <div
@@ -27,8 +23,9 @@ export default function FormField({ title, type, isRequired, Icon }) {
         name={title}
         id={title}
         required={isRequired}
-        onFocus={flipInputFocus}
-        onBlur={flipInputFocus}
+        onChange={onChange}
+        onFocus={() => setBorder(!border)}
+        onBlur={() => setBorder(!border)}
       />
       <div className='FormField-icon-container'>
         <Logo className='FormField-icon' />
