@@ -22,8 +22,10 @@ export default function App() {
       .then((response) => {
         setUsers(response.data.data);
       })
-      .catch((error) => {
-        console.log(error.response);
+      .catch(() => {
+        alert(
+          'Could not retrieve employees from the database, please refresh the page.'
+        );
       });
   }, []);
 
@@ -47,8 +49,17 @@ export default function App() {
 
   useEffect(() => {
     if (submit) {
+      if (
+        !newUser.employee_name ||
+        !newUser.employee_salary ||
+        !newUser.employee_age
+      ) {
+        alert('Please fill the form.');
+        setSubmit(!submit);
+        return;
+      }
       setLoadingForm(true);
-      alert(newUser.employee_name);
+
       const api = axios.create({
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         baseURL: URL.api,
@@ -99,7 +110,7 @@ export default function App() {
         <div className='App-List'><ListView users={users} displayCard={displayCard} /></div>
         <div className='App-Card'><InfoCard user={user} isEmpty={loadingCard} /></div>
         <div className='App-Spinner-Card'>{loadingCard ? <Spinner /> : null}</div>
-        <div className='App-Form'><Form setSubmit={setSubmit} setUpdate={setUpdate} isEmpty={loadingForm} setNewUser={ setNewUser } /></div>
+        <div className='App-Form'><Form setSubmit={setSubmit} setUpdate={setUpdate} isEmpty={loadingForm} setNewUser={setNewUser} newUser={newUser} /></div>
         <div className='App-Spinner-Form'>{loadingForm ? <Spinner /> : null}</div>
       </div>
     </div>

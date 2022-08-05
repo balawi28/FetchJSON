@@ -3,7 +3,13 @@ import FormField from './FormField';
 import IconIdentity from './icons/identity.svg';
 import './Form.css';
 
-export default function Form({ setSubmit, setUpdate, isEmpty, setNewUser }) {
+export default function Form({
+  setSubmit,
+  setUpdate,
+  isEmpty,
+  setNewUser,
+  newUser,
+}) {
   const change =
     (prop) =>
     ({ target }) =>
