@@ -30,7 +30,7 @@ export default function Form({ onSubmit, onUpdate, isEmpty, setFormData }) {
       <div className='Form-FormField-salary'>
         <FormField
           title='Salary'
-          type='text'
+          type='number'
           isRequired={true}
           onChange={change('employee_salary')}
         />
@@ -38,7 +38,7 @@ export default function Form({ onSubmit, onUpdate, isEmpty, setFormData }) {
       <div className='Form-FormField-age'>
         <FormField
           title='Age'
-          type='text'
+          type='number'
           isRequired={true}
           onChange={change('employee_age')}
         />
