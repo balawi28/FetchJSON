@@ -10,26 +10,38 @@ import Spinner from './Spinner';
 export default function App() {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState({});
-  const [newUser, setNewUser] = useState({});
+  const [formData, setFormData] = useState({});
   const [loadingCard, setLoadingCard] = useState(false);
   const [loadingForm, setLoadingForm] = useState(false);
-  const [submit, setSubmit] = useState(false);
-  const [update, setUpdate] = useState(false);
+
+  // Set axios headers.
+  const api = axios.create({
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    baseURL: URL.api,
+  });
 
   useEffect(() => {
-    axios
-      .get(URL.employees)
+    api
+      .get('/employees')
       .then((response) => {
         setUsers(response.data.data);
       })
-      .catch(() => {
+      .catch((error) => {
         alert(
-          'Could not retrieve employees from the database, please refresh the page.'
+          'Could not retrieve employees from the database, please refresh the page. (' +
+            error.message +
+            ').'
         );
       });
   }, []);
 
   const displayCard = (e, id) => {
+    // check if the user exists locally.
+    let searchedArray = users.filter((user) => user.id === id);
+    if (searchedArray.length > 0) {
+      setUser(searchedArray[0]);
+      return;
+    }
     setLoadingCard(true);
     axios
       .get(URL.employee + id)
@@ -41,67 +53,67 @@ export default function App() {
       })
       .catch((error) => {
         console.log(error.response);
-        alert('An error has occured while trying to reach the servers.');
-        //setTimeout(displayCard(e, id), 1000);
+        alert(
+          'An error has occured while trying to reach the servers. (' +
+            error.message +
+            ').'
+        );
       })
       .finally(() => setLoadingCard(false));
   };
 
-  useEffect(() => {
-    if (submit) {
-      if (
-        !newUser.employee_name ||
-        !newUser.employee_salary ||
-        !newUser.employee_age
-      ) {
-        alert('Please fill the form.');
-        setSubmit(!submit);
-        return;
-      }
-      setLoadingForm(true);
+  function onSubmit() {
+    if (!isFilledForm()) return;
+    setLoadingForm(true);
 
-      const api = axios.create({
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        baseURL: URL.api,
+    api
+      .post('/create', formData)
+      .then((res) => {
+        alert(res.data.message + ' (id = ' + res.data.data.id + ').');
+        setUsers((users) => [...users, { ...formData, id: res.data.data.id }]);
+      })
+      .catch((error) => {
+        alert('An error has occured while posting the new employee');
+      })
+      .finally(() => {
+        setLoadingForm(false);
       });
-      api
-        .post('/create', newUser)
-        .then((res) => {
-          alert('The employee has been added successfully');
-        })
-        .catch((error) => {
-          alert('An error has occured while posting the new employee');
-        })
-        .finally(() => {
-          setLoadingForm(false);
-        });
-      setSubmit(false);
-    }
-  }, [submit]);
+  }
 
-  useEffect(() => {
-    if (update) {
-      setLoadingForm(true);
+  function onUpdate() {
+    if (!isFilledForm()) return;
 
-      const api = axios.create({
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        baseURL: URL.api,
+    setLoadingForm(true);
+    const api = axios.create({
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      baseURL: URL.api,
+    });
+    api
+      .put('/update/1', formData)
+      .then((res) => {
+        alert(
+          'The employee has been updated successfully, status: ' + res.status
+        );
+      })
+      .catch((error) => {
+        alert('An error has occured while updating the new employee');
+      })
+      .finally(() => {
+        setLoadingForm(false);
       });
-      api
-        .put('/update/1', newUser)
-        .then((res) => {
-          alert('The employee has been added successfully');
-        })
-        .catch((error) => {
-          alert('An error has occured while updating the new employee');
-        })
-        .finally(() => {
-          setLoadingForm(false);
-        });
-      setSubmit(false);
-    }
-  }, [update]);
+  }
 
+  function isFilledForm() {
+    if (
+      !formData.employee_name ||
+      !formData.employee_salary ||
+      !formData.employee_age
+    ) {
+      alert('Please fill the form.');
+      return false;
+    }
+    return true;
+  }
   // prettier-ignore
 
   return (
@@ -110,7 +122,7 @@ export default function App() {
         <div className='App-List'><ListView users={users} displayCard={displayCard} /></div>
         <div className='App-Card'><InfoCard user={user} isEmpty={loadingCard} /></div>
         <div className='App-Spinner-Card'>{loadingCard ? <Spinner /> : null}</div>
-        <div className='App-Form'><Form setSubmit={setSubmit} setUpdate={setUpdate} isEmpty={loadingForm} setNewUser={setNewUser} newUser={newUser} /></div>
+        <div className='App-Form'><Form onSubmit={onSubmit} onUpdate={onUpdate} isEmpty={loadingForm} setFormData={setFormData} /></div>
         <div className='App-Spinner-Form'>{loadingForm ? <Spinner /> : null}</div>
       </div>
     </div>

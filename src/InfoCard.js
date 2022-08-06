@@ -10,7 +10,7 @@ export default function InfoCard({ user, isEmpty }) {
   } = user;
 
   return (
-    <table
+    <div
       className='InfoCard'
       style={isEmpty ? { filter: 'blur(4px)' } : { filter: 'blur(0px)' }}
     >
@@ -42,6 +42,6 @@ export default function InfoCard({ user, isEmpty }) {
       <td className='InfoCard-age'>
         <p>{age}</p>
       </td>
-    </table>
+    </div>
   );
 }

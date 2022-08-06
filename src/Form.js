@@ -3,17 +3,11 @@ import FormField from './FormField';
 import IconIdentity from './icons/identity.svg';
 import './Form.css';
 
-export default function Form({
-  setSubmit,
-  setUpdate,
-  isEmpty,
-  setNewUser,
-  newUser,
-}) {
+export default function Form({ onSubmit, onUpdate, isEmpty, setFormData }) {
   const change =
     (prop) =>
     ({ target }) =>
-      setNewUser((newUser) => ({ ...newUser, [prop]: target.value }));
+      setFormData((formData) => ({ ...formData, [prop]: target.value }));
 
   return (
     <form
@@ -52,7 +46,7 @@ export default function Form({
       <button
         className='Form-button Form-button-submit'
         onClick={() => {
-          setSubmit(true);
+          onSubmit();
         }}
       >
         Submit
@@ -60,7 +54,7 @@ export default function Form({
       <button
         className='Form-button Form-button-update'
         onClick={() => {
-          setUpdate(true);
+          onUpdate();
         }}
       >
         Update
