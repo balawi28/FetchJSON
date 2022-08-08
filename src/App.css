@@ -24,7 +24,7 @@ body {
   justify-content: stretch;
   align-items: stretch;
   gap: 20px 60px;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 490px;
   grid-template-rows: 1fr 1fr;
   grid-template-areas:
     'list card'
@@ -56,4 +56,23 @@ body {
 .App-Spinner-Form {
   grid-area: form;
   pointer-events: none;
+}
+
+.App-button-add {
+  margin-top: 20px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  border-radius: 3vw;
+  font-weight: 400;
+  font-size: 1.3rem;
+  font-family: Poppins;
+  padding: 20px 40px;
+  grid-area: form;
+  background-color: #1779ce;
+  width: 100%;
+}
+
+.App-button-add:hover {
+  background-color: #105694;
 }

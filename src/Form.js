@@ -1,9 +1,15 @@
 import React from 'react';
 import FormField from './FormField';
-import IconIdentity from './icons/identity.svg';
 import './Form.css';
 
-export default function Form({ onSubmit, onUpdate, isEmpty, setFormData }) {
+export default function Form({
+  onSubmit,
+  onUpdate,
+  isEmpty,
+  setFormData,
+  setVisibleForm,
+  formData,
+}) {
   const change =
     (prop) =>
     ({ target }) =>
@@ -18,31 +24,40 @@ export default function Form({ onSubmit, onUpdate, isEmpty, setFormData }) {
       }}
     >
       <h1 className='Form-h1-title'>Add or Update Employees.</h1>
+
       <div className='Form-FormField-name'>
         <FormField
           title='Name'
           type='text'
           isRequired={true}
           onChange={change('employee_name')}
-          svg={IconIdentity}
+          autoFocus={true}
+          value={formData.employee_name}
         />
       </div>
+
       <div className='Form-FormField-salary'>
         <FormField
           title='Salary'
           type='number'
           isRequired={true}
           onChange={change('employee_salary')}
+          autoFocus={false}
+          value={formData.employee_salary}
         />
       </div>
+
       <div className='Form-FormField-age'>
         <FormField
           title='Age'
           type='number'
           isRequired={true}
           onChange={change('employee_age')}
+          autoFocus={false}
+          value={formData.employee_age}
         />
       </div>
+
       <button
         className='Form-button Form-button-submit'
         onClick={() => {
@@ -51,6 +66,7 @@ export default function Form({ onSubmit, onUpdate, isEmpty, setFormData }) {
       >
         Submit
       </button>
+
       <button
         className='Form-button Form-button-update'
         onClick={() => {
@@ -58,6 +74,15 @@ export default function Form({ onSubmit, onUpdate, isEmpty, setFormData }) {
         }}
       >
         Update
+      </button>
+
+      <button
+        className='Form-button Form-button-cancel'
+        onClick={() => {
+          setVisibleForm(false);
+        }}
+      >
+        Cancel
       </button>
     </form>
   );

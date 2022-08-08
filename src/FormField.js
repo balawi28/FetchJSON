@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 import './FormField.css';
 import { ReactComponent as Logo } from './icons/identity.svg';
 
-export default function FormField({ title, type, isRequired, onChange }) {
+export default function FormField({
+  title,
+  type,
+  isRequired,
+  onChange,
+  autoFocus,
+  value,
+}) {
   const [border, setBorder] = useState(false);
 
   return (
@@ -26,6 +33,8 @@ export default function FormField({ title, type, isRequired, onChange }) {
         onChange={onChange}
         onFocus={() => setBorder(!border)}
         onBlur={() => setBorder(!border)}
+        autoFocus={autoFocus}
+        value={value}
       />
       <div className='FormField-icon-container'>
         <Logo className='FormField-icon' />

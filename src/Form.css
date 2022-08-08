@@ -1,12 +1,12 @@
 .Form {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas:
-    'title title'
-    'name name'
-    'salary salary'
-    'age age'
-    'submit update';
+    'title title title'
+    'name name name'
+    'salary salary salary'
+    'age age age'
+    'submit update cancel';
   gap: 20px;
   height: 100%;
 }
@@ -31,15 +31,15 @@
   font-weight: 400;
   font-size: 1.3rem;
   font-family: Poppins;
-  padding: 20px 45px;
+  padding: 20px 40px;
 }
 
-.Form-button-submit {
-  grid-area: submit;
+.Form-button-cancel {
+  grid-area: cancel;
   background-color: #555b69;
 }
 
-.Form-button-submit:hover {
+.Form-button-cancel:hover {
   background-color: #3f4450;
 }
 
@@ -49,6 +49,15 @@
 }
 
 .Form-button-update:hover {
+  background-color: #105694;
+}
+
+.Form-button-submit {
+  grid-area: submit;
+  background-color: #1779ce;
+}
+
+.Form-button-submit:hover {
   background-color: #105694;
 }
 

@@ -13,6 +13,7 @@ export default function App() {
   const [formData, setFormData] = useState({});
   const [loadingCard, setLoadingCard] = useState(false);
   const [loadingForm, setLoadingForm] = useState(false);
+  const [visibleForm, setVisibleForm] = useState(false);
 
   // Set axios headers.
   const api = axios.create({
@@ -40,6 +41,8 @@ export default function App() {
     let searchedArray = users.filter((user) => user.id === id);
     if (searchedArray.length > 0) {
       setUser(searchedArray[0]);
+      setFormData(searchedArray[0]);
+
       return;
     }
     setLoadingCard(true);
@@ -103,6 +106,10 @@ export default function App() {
       });
   }
 
+  function onAdd() {
+    setVisibleForm(true);
+  }
+
   function isFilledForm() {
     if (
       !formData.employee_name ||
@@ -121,9 +128,12 @@ export default function App() {
       <div className='App-Container'>
         <div className='App-List'><ListView users={users} displayCard={displayCard} /></div>
         <div className='App-Card'><InfoCard user={user} isEmpty={loadingCard} /></div>
-        <div className='App-Spinner-Card'>{loadingCard ? <Spinner /> : null}</div>
-        <div className='App-Form'><Form onSubmit={onSubmit} onUpdate={onUpdate} isEmpty={loadingForm} setFormData={setFormData} /></div>
-        <div className='App-Spinner-Form'>{loadingForm ? <Spinner /> : null}</div>
+        <div className='App-Spinner-Card'>{loadingCard && <Spinner />}</div>
+        <div className='App-Form'>{visibleForm
+          ? <Form onSubmit={onSubmit} onUpdate={onUpdate} isEmpty={loadingForm} setFormData={setFormData} setVisibleForm={setVisibleForm} formData={formData}/>
+          : <button className='App-button-add' onClick={onAdd}>Add/Update</button>}
+        </div>
+        <div className='App-Spinner-Form'>{loadingForm && <Spinner />}</div>
       </div>
     </div>
   );
