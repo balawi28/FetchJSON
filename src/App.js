@@ -1,16 +1,21 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
-import URL from './urls.json';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
-import Form from './Form';
-import InfoCard from './InfoCard';
-import ListView from './ListView';
-import Spinner from './Spinner';
+import Form from './components/Form/Form';
+import InfoCard from './components/InfoCard/InfoCard';
+import ListView from './components/ListView/ListView';
+import Spinner from './components/Spinner/Spinner';
+import { setFormData } from './features/formData';
+import { setUser } from './features/user';
+import { addUser, setUsers } from './features/usersList';
+import URL from './urls.json';
 
 export default function App() {
-  const [users, setUsers] = useState([]);
-  const [user, setUser] = useState({});
-  const [formData, setFormData] = useState({});
+  const usersList = useSelector((state) => state.usersList.value);
+  const formData = useSelector((state) => state.formData.value);
+  const dispatch = useDispatch();
+
   const [loadingCard, setLoadingCard] = useState(false);
   const [loadingForm, setLoadingForm] = useState(false);
   const [visibleForm, setVisibleForm] = useState(false);
@@ -25,7 +30,7 @@ export default function App() {
     api
       .get('/employees')
       .then((response) => {
-        setUsers(response.data.data);
+        dispatch(setUsers(response.data.data));
       })
       .catch((error) => {
         alert(
@@ -36,12 +41,12 @@ export default function App() {
       });
   }, []);
 
-  const displayCard = (e, id) => {
+  const fillCard = (e, id) => {
     // check if the user exists locally.
-    let searchedArray = users.filter((user) => user.id === id);
+    let searchedArray = usersList.filter((user) => user.id === id);
     if (searchedArray.length > 0) {
-      setUser(searchedArray[0]);
-      setFormData(searchedArray[0]);
+      dispatch(setUser(searchedArray[0]));
+      dispatch(setFormData(searchedArray[0]));
 
       return;
     }
@@ -52,7 +57,7 @@ export default function App() {
         const {
           data: { data: user },
         } = response;
-        setUser(user);
+        dispatch(setUser(user));
       })
       .catch((error) => {
         console.log(error.response);
@@ -66,14 +71,13 @@ export default function App() {
   };
 
   function onSubmit() {
-    if (!isFilledForm()) return;
     setLoadingForm(true);
 
     api
       .post('/create', formData)
       .then((res) => {
         alert(res.data.message + ' (id = ' + res.data.data.id + ').');
-        setUsers((users) => [...users, { ...formData, id: res.data.data.id }]);
+        dispatch(addUser({ ...formData, id: res.data.data.id }));
       })
       .catch((error) => {
         alert('An error has occured while posting the new employee');
@@ -84,8 +88,6 @@ export default function App() {
   }
 
   function onUpdate() {
-    if (!isFilledForm()) return;
-
     setLoadingForm(true);
     const api = axios.create({
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -110,27 +112,15 @@ export default function App() {
     setVisibleForm(true);
   }
 
-  function isFilledForm() {
-    if (
-      !formData.employee_name ||
-      !formData.employee_salary ||
-      !formData.employee_age
-    ) {
-      alert('Please fill the form.');
-      return false;
-    }
-    return true;
-  }
   // prettier-ignore
-
   return (
     <div className='App'>
       <div className='App-Container'>
-        <div className='App-List'><ListView users={users} displayCard={displayCard} /></div>
-        <div className='App-Card'><InfoCard user={user} isEmpty={loadingCard} /></div>
+        <div className='App-List'><ListView fillCard={fillCard} /></div>
+        <div className='App-Card'><InfoCard isEmpty={loadingCard} /></div>
         <div className='App-Spinner-Card'>{loadingCard && <Spinner />}</div>
         <div className='App-Form'>{visibleForm
-          ? <Form onSubmit={onSubmit} onUpdate={onUpdate} isEmpty={loadingForm} setFormData={setFormData} setVisibleForm={setVisibleForm} formData={formData}/>
+          ? <Form onSubmit={onSubmit} onUpdate={onUpdate} isEmpty={loadingForm} setVisibleForm={setVisibleForm}/>
           : <button className='App-button-add' onClick={onAdd}>Add/Update</button>}
         </div>
         <div className='App-Spinner-Form'>{loadingForm && <Spinner />}</div>
