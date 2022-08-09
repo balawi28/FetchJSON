@@ -1,0 +1,61 @@
+.InfoCard {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'title title'
+    'id-t id'
+    'name-t name'
+    'salary-t salary'
+    'age-t age';
+  height: 100%;
+}
+
+.InfoCard th,
+.InfoCard td {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.InfoCard p,
+.InfoCard-heading {
+  position: relative;
+  left: 20px;
+}
+
+.InfoCard-heading {
+  grid-area: title;
+}
+
+.InfoCard :nth-child(4n) {
+  background-color: #1366af;
+}
+
+.InfoCard :nth-child(4n-2) {
+  background-color: #167cd4;
+}
+
+.InfoCard :nth-child(4n-1) {
+  background-color: #323644;
+}
+
+.InfoCard :nth-child(4n + 5) {
+  background-color: #252733;
+}
+
+.InfoCard th:nth-child(2) {
+  border-top-left-radius: 25px;
+}
+
+.InfoCard :nth-child(3) {
+  border-top-right-radius: 25px;
+}
+
+.InfoCard :nth-last-child(2) {
+  border-bottom-left-radius: 25px;
+}
+
+.InfoCard :last-child {
+  border-bottom-right-radius: 25px;
+}
