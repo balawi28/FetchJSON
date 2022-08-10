@@ -18,61 +18,13 @@ body {
 }
 
 .App-Container {
-  max-width: 900px;
-  max-height: 100%;
-  display: grid;
-  justify-content: stretch;
-  align-items: stretch;
-  gap: 20px 60px;
-  grid-template-columns: 1fr 490px;
-  grid-template-rows: 1fr 1fr;
-  grid-template-areas:
-    'list card'
-    'list form';
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.App-List {
-  overflow-y: scroll;
-  grid-area: list;
-}
-
-.App-List::-webkit-scrollbar {
-  display: none;
-}
-
-.App-Card {
-  grid-area: card;
-}
-
-.App-Spinner-Card {
-  grid-area: card;
-  margin-top: 100px;
-}
-
-.App-Form {
-  grid-area: form;
-}
-
-.App-Spinner-Form {
-  grid-area: form;
-  pointer-events: none;
-}
-
-.App-button-add {
-  margin-top: 20px;
-  border: none;
-  cursor: pointer;
-  color: #fff;
-  border-radius: 3vw;
-  font-weight: 400;
-  font-size: 1.3rem;
-  font-family: Poppins;
-  padding: 20px 40px;
-  grid-area: form;
-  background-color: #1779ce;
-  width: 100%;
-}
-
-.App-button-add:hover {
-  background-color: #105694;
+.App-Total {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
